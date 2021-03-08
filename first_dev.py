@@ -38,14 +38,17 @@ class AlienInvasion:  # Starting point!
         self.bg_color = (230, 230, 230)  # Specified as RGB colors
 
     def run_game(self):  # Game is controlled by the run game method.
+
         """Start the main loop for game."""
-        while True:  # Manages screen updates
+
+        while True:
             self._check_events()
-            self.ship_update()
+            self.ship.update()
             self._update_screen()
 
             def _check_events(self):
                 """Respond to keypresses and mouse events."""
+
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         sys.exit()
@@ -62,7 +65,6 @@ class AlienInvasion:  # Starting point!
 
                         if event.key == pygame.K_RIGHT:
                             self.ship.moving_right = False
-                            # if key was pressed, move ship to right
 
                         elif event.key == pygame.K_LEFT:
                             self.ship.moving_left = False
@@ -74,9 +76,9 @@ class AlienInvasion:  # Starting point!
             def _update_screen(self):
                 # Redraw the screen during each pass through the loop
                 self.screen.fill(self.settings.bg_color)
+                self.ship.blitme()
 
                 # Make most recently drawn screen visible:
-                self.ship.blitme()
 
             pygame.display.flip()
 
