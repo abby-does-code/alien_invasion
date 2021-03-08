@@ -35,19 +35,29 @@ class AlienInvasion:  # Starting point!
         self.ship = Ship(self)
         self.bg_color = (230, 230, 230)  # Specified as RGB colors
 
-    def run_game(self):  # GAme is controlled by the run game method.
+    def run_game(self):  # Game is controlled by the run game method.
         """Start the main loop for game."""
         while True:  # Manages screen updates
-            for event in pygame.even.get():  # Watch for keyboard/mouse events
+            self._check_events()
+            self._update_screen()
+
+            def _check_events(self):
+                """Respond to keypresses and mouse events."""
+                for event in pygame.even.get():
+                    if event.type == pygame.QUIT:
+                        sys.exit
+                # Watch for keyboard/mouse events
                 # Event loop listens for events (action user performs) and performs apprpriate tasks depending on the event:
-                if event.type == pygame.QUIT:
-                    sys.exit
-            self.screen.fill(self.settings.bg_color)  # fills with selected color
-            # Make most recently drawn screen visible; continually updates display:
-            self.ship.blitme()
+
+            def _update_screen(self):
+                # Redraw the screen
+                self.screen.fill(self.settings.bg_color)  # fills with selected color
+                # Make most recently drawn screen visible; continually updates display:
+                self.ship.blitme()
+
             pygame.display.flip()
 
-    # Make a game instance, then run. Only runs if file is called directly:
-    if __name__ == "main":
-        ai = AlienInvasion()
-        ai.run.game()
+        # Make a game instance, then run. Only runs if file is called directly:
+        if __name__ == "main":
+            ai = AlienInvasion()
+            ai.run.game()
