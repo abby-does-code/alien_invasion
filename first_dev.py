@@ -11,6 +11,7 @@ import sys
 import pygame
 from settings import Settings
 from ship import Ship as Ship
+from bullet import Bullet
 
 # Importing sys and pygame modules; pygame for functionality and sys tools to quit.
 
@@ -30,22 +31,30 @@ class AlienInvasion:  # Starting point!
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height)
         )
+
+        """ Code for full screen:
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.settings.screen_width = self.screen.get_rect().width
+        self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Alien Invasion")
+        pygame.display.set_caption("Alien Invasion")
+        """
 
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group()
 
         # Set a background color:
         self.bg_color = (230, 230, 230)  # Specified as RGB colors
 
     def run_game(self):  # Game is controlled by the run game method.
-
         """Start the main loop for game."""
-
         while True:
-            self.ship.update()
             self._check_events()
+            self.ship.update()
+            self._update_bullets()
             self._update_screen()
 
+    ##############################################################
     def _check_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -56,6 +65,7 @@ class AlienInvasion:  # Starting point!
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
 
+    ##############################################################
     def _check_keydown_events(self, event):
         """Respond to keypresses."""
         if event.key == pygame.K_RIGHT:
@@ -63,8 +73,11 @@ class AlienInvasion:  # Starting point!
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
-            sys.exit()  # Allows player to quit with "q" key
+            sys.exit()  # Allows player to quit with q
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
 
+    ##############################################################
     def _check_keyup_events(self, event):
         """Respond to keyup events."""
         if event.key == pygame.K_RIGHT:
@@ -76,18 +89,37 @@ class AlienInvasion:  # Starting point!
             # Event loop listens for events (action user performs) and performs apprpriate tasks depending on the event
             # If KEYDOWN happens, moving_direction funciton is set to True; otherwise, set back to False
 
+    ##############################################################
+    def _fire_bullet(self):
+        """Create a new bullet and add it to bullets group."""
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
+
+    ##############################################################
+    def _update_bullets(self):
+        """Update position of bullets and get rid of old bullets."""
+        # update bullet positions
+        self.bullets.update()  # calls for update on every sprit ein group
+
+        # Get rid of old bullets
+        for bullet in self.bullets.copy():  # loop allow sus to modify
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+
+    ##############################################################
     def _update_screen(self):
         # Redraw the screen during each pass through the loop
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
-
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         # Make most recently drawn screen visible:
-
         pygame.display.flip()
-
-        # Make a game instance, then run. Only runs if file is called directly:
 
 
 if __name__ == "__main__":
     ai = AlienInvasion()
     ai.run_game()
+
+# Make a game instance, then run. Only runs if file is called directly:
