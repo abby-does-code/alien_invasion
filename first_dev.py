@@ -47,29 +47,34 @@ class AlienInvasion:  # Starting point!
             self._update_screen()
 
     def _check_events(self):
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
 
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
-                    self.ship.moving_right = True
-
-                elif event.key == pygame.K_LEFT:
-                    self.ship.moving_left = True
-
+                self._check_keydown_events(event)  # separating out blocks of code
             elif event.type == pygame.KEYUP:
+                self._check_keyup_events(event)
 
-                if event.key == pygame.K_RIGHT:
-                    self.ship.moving_right = False
+    def _check_keydown_events(self, event):
+        """Respond to keypresses."""
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = True
+        elif event.key == pygame.K_LEFT:
+            self.ship.moving_left = True
+        elif event.key == pygame.K_q:
+            sys.exit()  # Allows player to quit with "q" key
 
-                elif event.key == pygame.K_LEFT:
-                    self.ship.moving_left = False
+    def _check_keyup_events(self, event):
+        """Respond to keyup events."""
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = False
+        elif event.key == pygame.K_LEFT:
+            self.ship.moving_left = False
 
-                # Watch for keyboard/mouse events
-                # Event loop listens for events (action user performs) and performs apprpriate tasks depending on the event
-                # If KEYDOWN happens, moving_direction funciton is set to True; otherwise, set back to False
+            # Watch for keyboard/mouse events
+            # Event loop listens for events (action user performs) and performs apprpriate tasks depending on the event
+            # If KEYDOWN happens, moving_direction funciton is set to True; otherwise, set back to False
 
     def _update_screen(self):
         # Redraw the screen during each pass through the loop
