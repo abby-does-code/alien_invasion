@@ -31,18 +31,18 @@ class Ship:
         self.moving_right = False
         self.moving_left = False
 
-        def update(self):
-            """Update the ship's position based on the movement flag."""
-            # Update ship's x value, not the rect
+    def update(self):
+        """Update the ship's position based on the movement flag."""
+        # Update ship's x value, not the rect
 
-            if self.moving_right and self.rect.right < self.screen_rect.right:
-                self.x += self.settings.ship_speed  # Moves if true
+        if self.moving_right and self.rect.right < self.screen_rect.right:
+            self.x += self.settings.ship_speed  # Moves if true
 
-            if self.moving_left and self.rect.left > 0:
-                self.x -= self.settings.ship_speed
+        if self.moving_left and self.rect.left > 0:
+            self.x -= self.settings.ship_speed
 
-            # Update rect object from self.x
-            self.rect.x = self.x
+        # Update rect object from self.x
+        self.rect.x = self.x
 
     def blitme(self):
         # Draws the image to the screen at the position specified by self.rect

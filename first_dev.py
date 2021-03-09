@@ -42,37 +42,34 @@ class AlienInvasion:  # Starting point!
         """Start the main loop for game."""
 
         while True:
-            # self.ship.update()
-            # self._check_events()
+            self.ship.update()
+            self._check_events()
             self._update_screen()
 
-            """
-            def _check_events(self):
-                Respond to keypresses and mouse events.
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        sys.exit()
+    def _check_events(self):
 
-                    elif event.type == pygame.KEYDOWN:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
 
-                        if event.key == pygame.K_RIGHT:
-                            self.ship.moving_right = True
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = True
 
-                        elif event.key == pygame.K_LEFT:
-                            self.ship.moving_left = True
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = True
 
-                    elif event.type == pygame.KEYUP:
+            elif event.type == pygame.KEYUP:
 
-                        if event.key == pygame.K_RIGHT:
-                            self.ship.moving_right = False
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False
 
-                        elif event.key == pygame.K_LEFT:
-                            self.ship.moving_left = False
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = False
 
                 # Watch for keyboard/mouse events
                 # Event loop listens for events (action user performs) and performs apprpriate tasks depending on the event
                 # If KEYDOWN happens, moving_direction funciton is set to True; otherwise, set back to False
-            """
 
     def _update_screen(self):
         # Redraw the screen during each pass through the loop
