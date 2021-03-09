@@ -19,7 +19,7 @@ class Ship:
         self.rect = self.image.get_rect()  # access the ship's rect attribute
 
         # Start each new ship at the bottom of the screen:
-        self.rect.midbottom = self.screen_rect.midbottom
+        # self.rect.midbottom = self.screen_rect.midbottom
 
         # Store a decimal value for the ship's horizontal position
         self.x = float(Self.rect.x)

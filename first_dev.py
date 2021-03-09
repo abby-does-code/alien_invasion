@@ -83,6 +83,8 @@ class AlienInvasion:  # Starting point!
             pygame.display.flip()
 
         # Make a game instance, then run. Only runs if file is called directly:
-        if __name__ == "main":
-            ai = AlienInvasion()
-            ai.run_game()
+
+
+if __name__ == "__main__":
+    ai = AlienInvasion()
+    ai.run_game()
