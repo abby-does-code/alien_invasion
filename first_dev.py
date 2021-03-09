@@ -10,7 +10,7 @@
 import sys
 import pygame
 from settings import Settings
-from ship import Ship
+from ship import Ship as Ship
 
 # Importing sys and pygame modules; pygame for functionality and sys tools to quit.
 
@@ -42,13 +42,13 @@ class AlienInvasion:  # Starting point!
         """Start the main loop for game."""
 
         while True:
-            self._check_events()
-            self.ship.update()
+            # self.ship.update()
+            # self._check_events()
             self._update_screen()
 
+            """
             def _check_events(self):
-                """Respond to keypresses and mouse events."""
-
+                Respond to keypresses and mouse events.
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         sys.exit()
@@ -72,15 +72,16 @@ class AlienInvasion:  # Starting point!
                 # Watch for keyboard/mouse events
                 # Event loop listens for events (action user performs) and performs apprpriate tasks depending on the event
                 # If KEYDOWN happens, moving_direction funciton is set to True; otherwise, set back to False
+            """
 
-            def _update_screen(self):
-                # Redraw the screen during each pass through the loop
-                self.screen.fill(self.settings.bg_color)
-                self.ship.blitme()
+    def _update_screen(self):
+        # Redraw the screen during each pass through the loop
+        self.screen.fill(self.settings.bg_color)
+        self.ship.blitme()
 
-                # Make most recently drawn screen visible:
+        # Make most recently drawn screen visible:
 
-            pygame.display.flip()
+        pygame.display.flip()
 
         # Make a game instance, then run. Only runs if file is called directly:
 

@@ -22,7 +22,7 @@ class Ship:
         # self.rect.midbottom = self.screen_rect.midbottom
 
         # Store a decimal value for the ship's horizontal position
-        self.x = float(Self.rect.x)
+        self.x = float(self.rect.x)
 
         ##################
         # Movement flags #
