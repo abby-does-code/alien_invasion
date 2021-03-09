@@ -11,7 +11,7 @@ class Ship:
 
         self.screen = ai_game.screen
         self.settings = ai_game.settings
-        self.screen_Rect = ai_game.screen.get_rect()
+        self.screen_rect = ai_game.screen.get_rect()
         # Allows us to place the ship in the appropriate
 
         # Load ship image and get its rect:
@@ -19,7 +19,7 @@ class Ship:
         self.rect = self.image.get_rect()  # access the ship's rect attribute
 
         # Start each new ship at the bottom of the screen:
-        # self.rect.midbottom = self.screen_rect.midbottom
+        self.rect.midbottom = self.screen_rect.midbottom
 
         # Store a decimal value for the ship's horizontal position
         self.x = float(self.rect.x)
