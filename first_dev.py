@@ -1,18 +1,22 @@
 ##START##
-# First Development Phase#
 
 # install pygame using "pip3 install pygame"
 ##install successful
 
-# Starting Game Project
-##Begin by creating empty Pygame window and responding to user output
 
 import sys
+from time import sleep  # so we can pause the game
+
 import pygame
+
 from settings import Settings
+from game_stats import GameStats
+
 from ship import Ship as Ship
 from bullet import Bullet
+
 from alien import Alien
+
 
 # Importing sys and pygame modules; pygame for functionality and sys tools to quit.
 
@@ -32,14 +36,17 @@ class AlienInvasion:  # Starting point!
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height)
         )
+        pygame.display.set_caption("Alien Invasion")
 
         """ Code for full screen:
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Alien Invasion")
-        pygame.display.set_caption("Alien Invasion")
         """
+
+        # Create an instance to store game statistics
+        self.stats = GameStats(self)
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -178,7 +185,24 @@ class AlienInvasion:  # Starting point!
 
         # Look for alien-ship collisions
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
-            print("Ship hit!!!")
+            self._ship_hit()
+
+    ##############################################################
+    def _ship_hit(self):
+        """Respond to the ship being hit by an alien."""
+        # Decrement ships_left
+        self.stats.ships_left -= 1
+
+        # Get rid of any remaining aliens and bullets
+        self.aliens.empty()
+        self.bullets.empty()
+
+        # Create a new fleet and center the ship
+        self._create_fleet()
+        self.ship.center_ship()
+
+        # Pause
+        sleep(0.5)
 
     ##############################################################
     def _update_screen(self):
